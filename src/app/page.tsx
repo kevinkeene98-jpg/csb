@@ -33,18 +33,16 @@ export default function Home() {
       .catch(() => setOrderNumber(0));
   }, []);
 
-  const handleNameSubmit = async (submittedName: string) => {
+  const handleNameSubmit = (submittedName: string) => {
     setName(submittedName);
     
-    // Increment order count
-    try {
-      const res = await fetch('/api/order-count', { method: 'POST' });
-      const data = await res.json();
-      setOrderNumber(data.count);
-    } catch {
-      setOrderNumber((prev) => prev + 1);
-    }
+    // Optimistically increment order number locally (instant UI)
+    setOrderNumber((prev) => prev + 1);
     
+    // Fire-and-forget: increment on server in background
+    fetch('/api/order-count', { method: 'POST' }).catch(() => {});
+    
+    // Immediately move to questions
     setStage('questions');
   };
 
