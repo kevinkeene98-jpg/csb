@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --receipt-white: #faf9f7;
+  --receipt-gray: #e5e5e3;
+  --receipt-black: #1a1a1a;
+  --chipotle-red: #8b2332;
+  --sweetgreen-green: #3d5a47;
+  --cava-purple: #4a3f6b;
+}
+
+body {
+  background-color: var(--receipt-white);
+  color: var(--receipt-black);
+  font-family: ui-monospace, SFMono-Regular, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+/* Receipt-style dashed border */
+.receipt-border {
+  border: 1px dashed var(--receipt-gray);
+}
+
+/* Receipt paper texture effect */
+.receipt-paper {
+  background-color: var(--receipt-white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Selection option hover */
+.option-button {
+  transition: all 0.15s ease;
+}
+
+.option-button:hover {
+  background-color: #f0efed;
+}
+
+.option-button.selected {
+  background-color: #e8e7e5;
+}
+
+/* Chipotle themed result */
+.result-chipotle {
+  border-color: var(--chipotle-red);
+}
+
+.result-chipotle .accent {
+  color: var(--chipotle-red);
+}
+
+/* Sweetgreen themed result */
+.result-sweetgreen {
+  border-color: var(--sweetgreen-green);
+}
+
+.result-sweetgreen .accent {
+  color: var(--sweetgreen-green);
+}
+
+/* Cava themed result */
+.result-cava {
+  border-color: var(--cava-purple);
+}
+
+.result-cava .accent {
+  color: var(--cava-purple);
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Logo slide in animation (right to left) */
+@keyframes slideIn {
+  0% {
+    transform: translateX(60px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+/* Loading dots animation */
+@keyframes dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
+
+.loading-dots::after {
+  content: '.';
+  animation: dots 1.5s infinite;
+}
+
+/* Receipt tear effect */
+.receipt-tear {
+  position: relative;
+}
+
+.receipt-tear::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(135deg, var(--receipt-white) 25%, transparent 25%) -4px 0,
+              linear-gradient(225deg, var(--receipt-white) 25%, transparent 25%) -4px 0,
+              linear-gradient(315deg, var(--receipt-white) 25%, transparent 25%),
+              linear-gradient(45deg, var(--receipt-white) 25%, transparent 25%);
+  background-size: 8px 8px;
+  background-color: transparent;
+}

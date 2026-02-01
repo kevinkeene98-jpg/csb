@@ -1,0 +1,44 @@
+{
+  "Chipotle": [
+    {
+      "roast": "You're a foil-wrapped analyst who obsessively dissects presentation decks as if they're rolling burritos on a Monday morning rush.",
+      "secretWeapon": "Cilantro-lime rice"
+    },
+    {
+      "roast": "You're a guac-adjacent perfectionist who diligently optimizes team briefings like assembling a burrito with just the right ratio of toppings.",
+      "secretWeapon": "Spicy salsa vibe"
+    },
+    {
+      "roast": "You're a queso-dependent administrator who meticulously curates every quarterly report as if it were a burrito build in progress.",
+      "secretWeapon": "Ultimate chip dip"
+    },
+    {
+      "roast": "You're a bowl-maximizing tactician who zurveys endless strategies for 30-minute all-hands on Zoom.",
+      "secretWeapon": "Extra extra guac"
+    }
+  ],
+  "Sweetgreen": [
+    {
+      "roast": "You're a dressed-to-impress idealist who casually critiques brainstorm sessions for their carb-heavy agendas while slipping organic quinoa into every off-site meal plan.",
+      "secretWeapon": "Thousand Island dressing"
+    },
+    {
+      "roast": "You're a sustainably-sourced idealist who complicates lunch meetings with an elaborate blueprint for plant-based cafeteria options while subtly judging anyone who says ‘leafy greens.’",
+      "secretWeapon": "Energizing grain bowl"
+    },
+    {
+      "roast": "You're a locally-sourced existentialist who drains energy from corporate synergy workshops like they're kale juice on a Monday morning.",
+      "secretWeapon": "Side of sustainability"
+    }
+  ],
+  "Cava": [
+    {
+      "roast": "You're a tzatziki-drenched strategist who hijacks team meetings with unsolicited elevator pitches about leveraging synergies for Q2 growth.",
+      "secretWeapon": "Feta-crumble fetishes"
+    },
+    {
+      "roast": "You're a harissa-laden idealist who presents PowerPoint decks as if they were culinary masterpieces for the quarterly review.",
+      "secretWeapon": "Extra extra chickpeas"
+    }
+  ]
+}
