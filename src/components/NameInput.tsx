@@ -29,7 +29,6 @@ export function NameInput({ onSubmit }: NameInputProps) {
           placeholder="Enter name"
           maxLength={70}
           className="flex-1 px-4 py-3 bg-white border border-receipt-gray rounded-none font-mono text-receipt-black placeholder:text-receipt-black/40 focus:outline-none focus:border-receipt-black/40"
-          autoFocus
         />
         <button
           type="submit"
