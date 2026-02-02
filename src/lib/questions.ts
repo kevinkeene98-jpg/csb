@@ -3,6 +3,7 @@ export type Restaurant = 'Chipotle' | 'Sweetgreen' | 'Cava';
 export interface Option {
   id: string;
   text: string;
+  description?: string;
   restaurant: Restaurant;
 }
 
@@ -21,11 +22,11 @@ export const questions: Question[] = [
     title: 'Which corporate archetype best describes you?',
     weight: 3,
     options: [
-      { id: 'soldier', text: 'The Soldier', restaurant: 'Sweetgreen' },
-      { id: 'coaster', text: 'The Coaster', restaurant: 'Chipotle' },
-      { id: 'vampire', text: 'The Vampire', restaurant: 'Cava' },
-      { id: 'existentialist', text: 'The Existentialist', restaurant: 'Sweetgreen' },
-      { id: 'lion', text: 'The Lion', restaurant: 'Cava' },
+      { id: 'soldier', text: 'The Soldier', description: "Does what they're told. Never questions the roadmap.", restaurant: 'Sweetgreen' },
+      { id: 'coaster', text: 'The Coaster', description: 'Puts in the minimum viable effort.', restaurant: 'Chipotle' },
+      { id: 'vampire', text: 'The Vampire', description: 'Lives in dark mode. Literally and emotionally.', restaurant: 'Cava' },
+      { id: 'existentialist', text: 'The Existentialist', description: 'Questions the purpose of the stand-up. Daily.', restaurant: 'Sweetgreen' },
+      { id: 'lion', text: 'The Lion', description: 'Loudest and most incorrect in the room.', restaurant: 'Cava' },
     ],
   },
   {
@@ -34,11 +35,11 @@ export const questions: Question[] = [
     title: "What's your corporate superpower?",
     weight: 2,
     options: [
-      { id: 'shapeshifting', text: 'Shapeshifting', restaurant: 'Chipotle' },
-      { id: 'xray', text: 'X-ray vision', restaurant: 'Sweetgreen' },
-      { id: 'snake', text: 'Snake charming', restaurant: 'Cava' },
-      { id: 'strength', text: 'Super strength', restaurant: 'Cava' },
-      { id: 'invisibility', text: 'Invisibility', restaurant: 'Chipotle' },
+      { id: 'shapeshifting', text: 'Shapeshifting', description: 'Has a personality to match every Slack channel.', restaurant: 'Chipotle' },
+      { id: 'xray', text: 'X-ray vision', description: 'Sees through it all. Says nothing.', restaurant: 'Sweetgreen' },
+      { id: 'snake', text: 'Snake charming', description: 'Makes terrible ideas sound strategic.', restaurant: 'Cava' },
+      { id: 'strength', text: 'Super strength', description: 'Does the work of three. Paid as one.', restaurant: 'Cava' },
+      { id: 'invisibility', text: 'Invisibility', description: 'Survives every reorg unnoticed.', restaurant: 'Chipotle' },
     ],
   },
   {

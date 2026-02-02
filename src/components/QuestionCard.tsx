@@ -39,7 +39,10 @@ export function QuestionCard({
               selectedOption === option.id ? 'selected' : ''
             }`}
           >
-            <span className="text-receipt-black">{option.text}</span>
+            <span className="text-receipt-black font-bold">{option.text}</span>
+            {option.description && (
+              <span className="block text-sm text-receipt-black/60 mt-1">{option.description}</span>
+            )}
           </button>
         ))}
       </div>
