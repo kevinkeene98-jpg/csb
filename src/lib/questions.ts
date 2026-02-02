@@ -61,11 +61,11 @@ export const questions: Question[] = [
     title: 'When are you most extra at work?',
     weight: 1,
     options: [
-      { id: 'holiday', text: 'Company holiday party', description: 'Peaks at open bar. Regrets it by Monday.', restaurant: 'Sweetgreen' },
+      { id: 'holiday', text: 'Company holiday party', description: 'Peaks at open bar. Regrets it by Monday.', restaurant: 'Cava' },
       { id: 'allhands', text: 'All-hands Q&A', description: 'Has follow-up questions to their follow-up questions.', restaurant: 'Chipotle' },
       { id: 'oneone', text: 'One-on-ones', description: 'Turns every check-in into a therapy session.', restaurant: 'Sweetgreen' },
       { id: 'icebreaker', text: 'The meeting icebreaker', description: 'Loses sleep over coming up with a fun fact.', restaurant: 'Cava' },
-      { id: 'gossip', text: 'Lunchtime gossip', description: 'Has inside sources in every department.', restaurant: 'Sweetgreen' },
+      { id: 'gossip', text: 'Lunchtime gossip', description: 'Has inside sources in every department.', restaurant: 'Cava' },
     ],
   },
 ];
