@@ -116,35 +116,27 @@ export function ResultCard({
     URL.revokeObjectURL(url);
   };
 
-  // Calculate percentages using largest remainder method to ensure sum = 100%
+  // Calculate percentages that always sum to exactly 100%
   const totalScore = scores.Chipotle + scores.Sweetgreen + scores.Cava;
-  const rawPercentages = (Object.entries(scores) as [Restaurant, number][])
-    .map(([name, score]) => {
-      const exact = (score / totalScore) * 100;
-      return {
-        name,
-        exact,
-        floored: Math.floor(exact),
-        remainder: exact - Math.floor(exact),
-      };
-    });
+  const items = (Object.entries(scores) as [Restaurant, number][]).map(([name, score]) => {
+    const exact = (score / totalScore) * 100;
+    return { name, exact, floored: Math.floor(exact) };
+  });
 
-  // Distribute the remaining percentage points to entries with largest remainders
-  let remaining = 100 - rawPercentages.reduce((sum, p) => sum + p.floored, 0);
-  const sortedByRemainder = [...rawPercentages].sort((a, b) => b.remainder - a.remainder);
-  
-  for (const entry of sortedByRemainder) {
+  // Distribute remaining points to items with largest remainders
+  let remaining = 100 - items.reduce((sum, p) => sum + p.floored, 0);
+  const byRemainder = [...items].sort((a, b) => (b.exact - b.floored) - (a.exact - a.floored));
+  for (const item of byRemainder) {
     if (remaining <= 0) break;
-    entry.floored += 1;
+    item.floored += 1;
     remaining -= 1;
   }
 
-  // Convert to final format and sort by percentage (winner first if tied)
-  const percentages = rawPercentages
+  // Sort by percentage (winner first if tied)
+  const percentages = items
     .map(({ name, floored }) => ({ name, percentage: floored }))
     .sort((a, b) => {
       if (b.percentage !== a.percentage) return b.percentage - a.percentage;
-      // If tied, put the winner first
       if (a.name === restaurant) return -1;
       if (b.name === restaurant) return 1;
       return 0;
