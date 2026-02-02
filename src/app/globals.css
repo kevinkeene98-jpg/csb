@@ -31,6 +31,13 @@ body {
 /* Selection option hover */
 .option-button {
   transition: all 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  background-color: transparent;
+}
+
+.option-button:focus {
+  outline: none;
 }
 
 /* Only apply hover on devices that support it (not mobile) */
@@ -38,6 +45,10 @@ body {
   .option-button:hover {
     background-color: #f0efed;
   }
+}
+
+.option-button:active {
+  background-color: #e8e7e5;
 }
 
 .option-button.selected {
