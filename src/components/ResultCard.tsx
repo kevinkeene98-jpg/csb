@@ -228,7 +228,7 @@ export function ResultCard({
           onClick={isMobile ? handleShareMobile : handleSaveImage}
           className="w-full px-6 py-3 bg-receipt-black text-receipt-white font-mono uppercase tracking-wider text-sm hover:bg-receipt-black/80 transition-colors"
         >
-          {isMobile ? 'Share' : 'Save Image'}
+          Save Image
         </button>
         <button
           onClick={onRestart}
