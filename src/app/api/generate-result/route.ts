@@ -154,7 +154,7 @@ Generate a roast in this EXACT format:
 
 Rules:
 - Be creative, funny, and random with your outputs
-- Reference their specific quiz choices subtly
+- Reference their specific quiz choices in the output
 - The humor should feel like an observation, not a punchline
 - No exclamation points
 - The roast must be 12 words or fewer - keep it tight and punchy
@@ -163,7 +163,7 @@ ${recentOutputsText}
 
 Also include:
 - A secret weapon (something commonly associated with ${restaurant}, max 4 words, gross/sloppy sounding)
-- A personality blurb (3-4 words that summarize their vibe, like "Earnest, reflective, and conflicted" or "Loud, confident, and wrong")
+- A personality blurb (3-4 words that summarize their vibe, like "Earnest, reflective, and conflicted" or "Loud, confident, and spicy"). Make it endearing, personal, and validating
 
 Respond in JSON format:
 {
