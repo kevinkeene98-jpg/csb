@@ -140,8 +140,8 @@ export default function Home() {
           )}
         </div>
 
-        {/* Order Header (shown after name is entered) */}
-        {stage !== 'intro' && (
+        {/* Order Header (shown on loading and result only) */}
+        {(stage === 'loading' || stage === 'result') && (
           <OrderHeader orderNumber={orderNumber} name={name} />
         )}
 
