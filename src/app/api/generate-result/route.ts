@@ -157,7 +157,7 @@ Rules:
 - The humor should feel like an observation, not a punchline
 - No exclamation points
 - The roast must be 12 words or fewer - keep it tight and punchy
-- Secret weapon must be 4 words or fewer, just the item itself (e.g., "Extra extra guac", "Garlic breath", "Heaping globs of dressing")
+- Secret weapon must be 4 words or fewer - make it gross/sloppy sounding (e.g., "Leaky dressing packets", "Soggy grain overflow", "Lukewarm queso puddle", "Wilted kale residue")
 ${recentOutputsText}
 
 Also include a secret weapon (something commonly associated with ${restaurant}, max 4 words). Use the same rules as above.
@@ -202,16 +202,16 @@ Respond in JSON format:
     // Fallback responses if API fails
     const fallbacks: Record<Restaurant, { roast: string; secretWeapon: string }> = {
       Chipotle: {
-        roast: "You're a foil-wrapped pragmatist who schedules meetings during lunch to avoid small talk in the kitchen.",
-        secretWeapon: "Extra guac",
+        roast: "You're a foil-wrapped pragmatist who avoids uncomfortable eye contact.",
+        secretWeapon: "Lukewarm queso puddle",
       },
       Sweetgreen: {
-        roast: "You're a kale-driven idealist who cries quietly after the all-hands ice breaker.",
-        secretWeapon: "Heaping globs of dressing",
+        roast: "You're a kale-driven idealist who schedules unnecessary meetings.",
+        secretWeapon: "Soggy grain residue",
       },
       Cava: {
-        roast: "You're a harissa-drizzled opportunist who turns every 1:1 into a therapy session.",
-        secretWeapon: "Crazy feta",
+        roast: "You're a harissa-drizzled opportunist who ignores passive-aggressive emails.",
+        secretWeapon: "Leaky tzatziki spillage",
       },
     };
 
