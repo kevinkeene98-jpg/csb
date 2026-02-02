@@ -55,6 +55,8 @@ export default function Home() {
       const newAnswer: Answer = {
         questionId: currentQuestion.id,
         optionId,
+        optionText: option.text,
+        optionDescription: option.description,
         restaurant: option.restaurant,
         weight: currentQuestion.weight,
       };

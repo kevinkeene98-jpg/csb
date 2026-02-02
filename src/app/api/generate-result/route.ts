@@ -115,13 +115,14 @@ export async function POST(request: Request) {
     // Build context about the user's choices
     const choicesSummary = answers.map(a => {
       const questionMap: Record<string, string> = {
-        base: 'corporate archetype',
-        protein: 'superpower',
-        toppings: 'quirk',
-        extras: 'when they\'re extra',
+        base: 'Corporate archetype',
+        protein: 'Superpower',
+        toppings: 'Quirk',
+        extras: 'Most extra at',
       };
-      return `${questionMap[a.questionId]}: ${a.optionId}`;
-    }).join(', ');
+      const desc = a.optionDescription ? ` - "${a.optionDescription}"` : '';
+      return `${questionMap[a.questionId]}: ${a.optionText}${desc}`;
+    }).join('\n');
 
     // Build recent outputs section for the prompt
     let recentOutputsText = '';

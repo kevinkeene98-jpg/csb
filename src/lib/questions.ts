@@ -73,6 +73,8 @@ export const questions: Question[] = [
 export interface Answer {
   questionId: string;
   optionId: string;
+  optionText: string;
+  optionDescription?: string;
   restaurant: Restaurant;
   weight: number;
 }
