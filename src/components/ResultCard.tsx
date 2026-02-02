@@ -32,23 +32,16 @@ export function ResultCard({
   onRestart,
 }: ResultCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [canShare, setCanShare] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check if Web Share API with files is supported
-    const checkShareSupport = async () => {
-      if (typeof navigator.share === 'function' && typeof navigator.canShare === 'function') {
-        // Create a test file to check if file sharing is supported
-        const testFile = new File(['test'], 'test.png', { type: 'image/png' });
-        try {
-          const supported = navigator.canShare({ files: [testFile] });
-          setCanShare(supported);
-        } catch {
-          setCanShare(false);
-        }
-      }
+    // Detect mobile device
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent || navigator.vendor;
+      const isMobileDevice = /android|iphone|ipad|ipod|webos|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+      setIsMobile(isMobileDevice);
     };
-    checkShareSupport();
+    checkMobile();
   }, []);
 
   const generateImage = async (): Promise<Blob | null> => {
@@ -87,32 +80,30 @@ export function ResultCard({
     }
   };
 
-  const handleShare = async () => {
+  const handleSaveImage = async () => {
     const blob = await generateImage();
-    if (!blob) {
-      console.error('Failed to generate image');
-      return;
-    }
+    if (!blob) return;
+    downloadImage(blob);
+  };
 
-    if (canShare) {
-      // Mobile: Use Web Share API
-      try {
-        const file = new File([blob], `corporateslopbowl-${restaurant.toLowerCase()}.png`, { type: 'image/png' });
-        await navigator.share({
-          files: [file],
-          title: `I'm ${restaurant}!`,
-          text: `I took the CorporateSlopBowl.com quiz`,
-        });
-      } catch (error) {
-        // User cancelled or error - fall back to download
-        if ((error as Error).name !== 'AbortError') {
-          console.error('Share failed:', error);
-          downloadImage(blob);
-        }
+  const handleShareMobile = async () => {
+    const blob = await generateImage();
+    if (!blob) return;
+
+    try {
+      const file = new File([blob], `corporateslopbowl-${restaurant.toLowerCase()}.png`, { type: 'image/png' });
+      
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file] });
+      } else {
+        // Fallback to download if share not supported
+        downloadImage(blob);
       }
-    } else {
-      // Desktop: Download the image
-      downloadImage(blob);
+    } catch (error) {
+      // User cancelled share - that's fine, don't download
+      if ((error as Error).name !== 'AbortError') {
+        downloadImage(blob);
+      }
     }
   };
 
@@ -234,10 +225,10 @@ export function ResultCard({
 
       <div className="flex flex-col gap-3">
         <button
-          onClick={handleShare}
+          onClick={isMobile ? handleShareMobile : handleSaveImage}
           className="w-full px-6 py-3 bg-receipt-black text-receipt-white font-mono uppercase tracking-wider text-sm hover:bg-receipt-black/80 transition-colors"
         >
-          {canShare ? 'Share' : 'Save Image'}
+          {isMobile ? 'Share' : 'Save Image'}
         </button>
         <button
           onClick={onRestart}
