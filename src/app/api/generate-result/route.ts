@@ -160,12 +160,15 @@ Rules:
 - Secret weapon must be 4 words or fewer - make it gross/sloppy sounding (e.g., "Leaky dressing packets", "Soggy grain overflow", "Lukewarm queso puddle", "Wilted kale residue")
 ${recentOutputsText}
 
-Also include a secret weapon (something commonly associated with ${restaurant}, max 4 words). Use the same rules as above.
+Also include:
+- A secret weapon (something commonly associated with ${restaurant}, max 4 words, gross/sloppy sounding)
+- A personality blurb (3-4 words that summarize their vibe, like "Earnest, reflective, and conflicted" or "Loud, confident, and wrong")
 
 Respond in JSON format:
 {
   "roast": "Your roast sentence here",
-  "secretWeapon": "Your secret weapon here"
+  "secretWeapon": "Your secret weapon here",
+  "blurb": "Your personality blurb here"
 }`;
 
     const completion = await openai.chat.completions.create({
@@ -195,23 +198,27 @@ Respond in JSON format:
       restaurant,
       roast: result.roast,
       secretWeapon: result.secretWeapon,
+      blurb: result.blurb,
     });
   } catch (error) {
     console.error('Error generating result:', error);
     
     // Fallback responses if API fails
-    const fallbacks: Record<Restaurant, { roast: string; secretWeapon: string }> = {
+    const fallbacks: Record<Restaurant, { roast: string; secretWeapon: string; blurb: string }> = {
       Chipotle: {
         roast: "You're a foil-wrapped pragmatist who avoids uncomfortable eye contact.",
         secretWeapon: "Lukewarm queso puddle",
+        blurb: "Practical, unbothered, and efficient",
       },
       Sweetgreen: {
         roast: "You're a kale-driven idealist who schedules unnecessary meetings.",
         secretWeapon: "Soggy grain residue",
+        blurb: "Earnest, reflective, and conflicted",
       },
       Cava: {
         roast: "You're a harissa-drizzled opportunist who ignores passive-aggressive emails.",
         secretWeapon: "Leaky tzatziki spillage",
+        blurb: "Bold, social, and slightly chaotic",
       },
     };
 
@@ -221,6 +228,7 @@ Respond in JSON format:
       restaurant,
       roast: fallback.roast,
       secretWeapon: fallback.secretWeapon,
+      blurb: fallback.blurb,
     });
   }
 }

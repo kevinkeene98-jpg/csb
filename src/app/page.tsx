@@ -15,6 +15,8 @@ interface Result {
   restaurant: Restaurant;
   roast: string;
   secretWeapon: string;
+  blurb: string;
+  scores: Record<Restaurant, number>;
 }
 
 export default function Home() {
@@ -76,7 +78,7 @@ export default function Home() {
   const generateResult = async (finalAnswers: Answer[]) => {
     setStage('loading');
     
-    const { winner } = calculateResult(finalAnswers);
+    const { winner, scores } = calculateResult(finalAnswers);
     
     try {
       const res = await fetch('/api/generate-result', {
@@ -94,6 +96,8 @@ export default function Home() {
         restaurant: data.restaurant,
         roast: data.roast,
         secretWeapon: data.secretWeapon,
+        blurb: data.blurb,
+        scores,
       });
       setStage('result');
     } catch (error) {
@@ -103,6 +107,8 @@ export default function Home() {
         restaurant: winner,
         roast: `You're a ${winner.toLowerCase()}-coded professional who navigates corporate life with suspicious efficiency.`,
         secretWeapon: 'An uncanny ability to always know where the good snacks are hidden.',
+        blurb: 'Competent, mysterious, and hungry',
+        scores,
       });
       setStage('result');
     }
@@ -183,6 +189,8 @@ export default function Home() {
             restaurant={result.restaurant}
             roast={result.roast}
             secretWeapon={result.secretWeapon}
+            blurb={result.blurb}
+            scores={result.scores}
             name={name}
             onRestart={handleRestart}
           />

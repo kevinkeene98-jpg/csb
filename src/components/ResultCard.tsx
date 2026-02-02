@@ -7,6 +7,8 @@ interface ResultCardProps {
   restaurant: Restaurant;
   roast: string;
   secretWeapon: string;
+  blurb: string;
+  scores: Record<Restaurant, number>;
   name: string;
   onRestart: () => void;
 }
@@ -21,13 +23,37 @@ export function ResultCard({
   restaurant,
   roast,
   secretWeapon,
+  blurb,
+  scores,
   name,
   onRestart,
 }: ResultCardProps) {
+  // Calculate percentages and sort by score
+  const totalScore = scores.Chipotle + scores.Sweetgreen + scores.Cava;
+  const percentages = (Object.entries(scores) as [Restaurant, number][])
+    .map(([name, score]) => ({
+      name,
+      percentage: Math.round((score / totalScore) * 100),
+    }))
+    .sort((a, b) => b.percentage - a.percentage);
+
+  // If there's a tie with the winner, give winner +1% and take 1% from second
+  if (percentages[0].name !== restaurant) {
+    const winnerIndex = percentages.findIndex(p => p.name === restaurant);
+    if (winnerIndex > 0 && percentages[winnerIndex].percentage === percentages[0].percentage) {
+      percentages[winnerIndex].percentage += 1;
+      percentages[0].percentage -= 1;
+      percentages.sort((a, b) => b.percentage - a.percentage);
+    }
+  } else if (percentages.length > 1 && percentages[0].percentage === percentages[1].percentage) {
+    percentages[0].percentage += 1;
+    percentages[1].percentage -= 1;
+  }
   return (
     <div className={`fade-in ${restaurantStyles[restaurant]}`}>
       <div className="text-center mb-8">
-        <h2 className={`text-3xl font-bold mb-2 accent`}>{restaurant}</h2>
+        <h2 className={`text-3xl font-bold mb-1 accent`}>{restaurant}</h2>
+        <p className="text-sm text-receipt-black/60 italic mb-2">{blurb}</p>
         {restaurant === 'Sweetgreen' && (
           <div className="mt-4">
             <Image
@@ -68,6 +94,20 @@ export function ResultCard({
 
       <div className="border-b border-receipt-gray pb-6 mb-6">
         <p className="text-lg leading-relaxed text-receipt-black">{roast}</p>
+      </div>
+
+      <div className="mb-6">
+        <div className="text-sm uppercase tracking-wider text-receipt-black/60 mb-3">
+          Compatibility
+        </div>
+        <div className="space-y-2">
+          {percentages.map(({ name, percentage }) => (
+            <div key={name} className="flex justify-between items-center">
+              <span className="text-receipt-black">{name}</span>
+              <span className="text-receipt-black/60">{percentage}%</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="mb-8">
