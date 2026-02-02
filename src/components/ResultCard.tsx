@@ -139,19 +139,16 @@ export function ResultCard({
     remaining -= 1;
   }
 
-  // Convert to final format and sort by percentage
+  // Convert to final format and sort by percentage (winner first if tied)
   const percentages = rawPercentages
     .map(({ name, floored }) => ({ name, percentage: floored }))
-    .sort((a, b) => b.percentage - a.percentage);
-
-  // Handle tiebreaker: if winner isn't first due to tie, swap percentages to put winner first
-  const winnerIndex = percentages.findIndex(p => p.name === restaurant);
-  if (winnerIndex > 0 && percentages[winnerIndex].percentage === percentages[0].percentage) {
-    // Swap the winner to first position by giving them +1 and taking from current first
-    percentages[winnerIndex].percentage += 1;
-    percentages[0].percentage -= 1;
-    percentages.sort((a, b) => b.percentage - a.percentage);
-  }
+    .sort((a, b) => {
+      if (b.percentage !== a.percentage) return b.percentage - a.percentage;
+      // If tied, put the winner first
+      if (a.name === restaurant) return -1;
+      if (b.name === restaurant) return 1;
+      return 0;
+    });
 
   return (
     <div className={`fade-in ${restaurantStyles[restaurant]}`}>
