@@ -136,7 +136,10 @@ export default function Home() {
       <div className="w-full max-w-md receipt-paper p-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold tracking-tight text-receipt-black mb-2">
+          <h1 
+            onClick={handleRestart}
+            className="text-2xl font-bold tracking-tight text-receipt-black mb-2 cursor-pointer hover:text-receipt-black/80 transition-colors"
+          >
             CorporateSlopBowl.com
           </h1>
           {stage === 'intro' && (

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import html2canvas from 'html2canvas';
 import { Restaurant } from '@/lib/questions';
 
@@ -32,9 +32,27 @@ export function ResultCard({
   onRestart,
 }: ResultCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [canShare, setCanShare] = useState(false);
 
-  const handleDownload = async () => {
-    if (!cardRef.current) return;
+  useEffect(() => {
+    // Check if Web Share API with files is supported
+    const checkShareSupport = async () => {
+      if (navigator.share && navigator.canShare) {
+        // Create a test file to check if file sharing is supported
+        const testFile = new File(['test'], 'test.png', { type: 'image/png' });
+        try {
+          const supported = navigator.canShare({ files: [testFile] });
+          setCanShare(supported);
+        } catch {
+          setCanShare(false);
+        }
+      }
+    };
+    checkShareSupport();
+  }, []);
+
+  const generateImage = async (): Promise<Blob | null> => {
+    if (!cardRef.current) return null;
 
     try {
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -60,13 +78,48 @@ export function ResultCard({
         },
       });
 
-      const link = document.createElement('a');
-      link.download = `corporateslopbowl-${restaurant.toLowerCase()}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+      return new Promise((resolve) => {
+        canvas.toBlob((blob) => resolve(blob), 'image/png');
+      });
     } catch (error) {
       console.error('Error generating image:', error);
+      return null;
     }
+  };
+
+  const handleShare = async () => {
+    const blob = await generateImage();
+    if (!blob) return;
+
+    const file = new File([blob], `corporateslopbowl-${restaurant.toLowerCase()}.png`, { type: 'image/png' });
+
+    if (canShare) {
+      // Mobile: Use Web Share API
+      try {
+        await navigator.share({
+          files: [file],
+          title: `I'm ${restaurant}!`,
+          text: `I'm ${restaurant} on CorporateSlopBowl.com`,
+        });
+      } catch (error) {
+        // User cancelled or error - fall back to download
+        if ((error as Error).name !== 'AbortError') {
+          downloadImage(blob);
+        }
+      }
+    } else {
+      // Desktop: Download the image
+      downloadImage(blob);
+    }
+  };
+
+  const downloadImage = (blob: Blob) => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = `corporateslopbowl-${restaurant.toLowerCase()}.png`;
+    link.href = url;
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   // Calculate percentages and sort by score
@@ -178,10 +231,10 @@ export function ResultCard({
 
       <div className="flex flex-col gap-3">
         <button
-          onClick={handleDownload}
+          onClick={handleShare}
           className="w-full px-6 py-3 bg-receipt-black text-receipt-white font-mono uppercase tracking-wider text-sm hover:bg-receipt-black/80 transition-colors"
         >
-          Save Image
+          {canShare ? 'Share' : 'Save Image'}
         </button>
         <button
           onClick={onRestart}
