@@ -37,7 +37,7 @@ export function ResultCard({
   useEffect(() => {
     // Check if Web Share API with files is supported
     const checkShareSupport = async () => {
-      if (navigator.share && navigator.canShare) {
+      if (typeof navigator.share === 'function' && typeof navigator.canShare === 'function') {
         // Create a test file to check if file sharing is supported
         const testFile = new File(['test'], 'test.png', { type: 'image/png' });
         try {
