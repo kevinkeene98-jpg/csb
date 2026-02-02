@@ -143,12 +143,13 @@ Their quiz answers: ${choicesSummary}
 Example modifiers for ${restaurant}: ${context.modifiers.join(', ')}
 
 Generate a roast in this EXACT format:
-1. A sentence structured as: "You're a [modifier] [noun] who [verb] [direct object] [prepositional phrase]"
+1. A sentence structured as: "You're a [modifier] [noun] who [verb] [adjective] [direct object]."
    - The modifier should be from or inspired but not directly-drawn by the list above, themed to ${restaurant}
    - The noun should describe their personality (Examples: "idealist", "pragmatist", "optimist", "realist", "strategist"). Use the examples as inspiration but don't draw from them directly.
    - The verb should reflect workplace behavior
+   - The adjective should add color to the direct object
    - The direct object should be a corporate trope
-   - The prepositional phrase should complete the sentence coherently
+   - Do NOT add a prepositional phrase - end the sentence after the direct object
 
 Rules:
 - Be creative, funny, and random with your outputs
