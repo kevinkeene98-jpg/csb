@@ -195,6 +195,7 @@ export default function Home() {
             blurb={result.blurb}
             scores={result.scores}
             name={name}
+            orderNumber={orderNumber}
             onRestart={handleRestart}
           />
         )}
