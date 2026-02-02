@@ -155,7 +155,7 @@ Rules:
 - Reference their specific quiz choices subtly
 - The humor should feel like an observation, not a punchline
 - No exclamation points
-- Maximum 2 sentences for the main roast
+- The roast must be 12 words or fewer - keep it tight and punchy
 - Secret weapon must be 4 words or fewer, just the item itself (e.g., "Extra extra guac", "Garlic breath", "Heaping globs of dressing")
 ${recentOutputsText}
 

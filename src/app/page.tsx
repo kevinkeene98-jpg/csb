@@ -134,7 +134,7 @@ export default function Home() {
             <>
               <LogoCarousel />
               <p className="text-sm text-receipt-black/60">
-                Which corporate slop bowl are you? Take the personality test to find out.
+                Take the personality test to find out your slop bowl match.
               </p>
             </>
           )}
