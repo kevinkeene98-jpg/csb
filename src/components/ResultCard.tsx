@@ -116,26 +116,41 @@ export function ResultCard({
     URL.revokeObjectURL(url);
   };
 
-  // Calculate percentages and sort by score
+  // Calculate percentages using largest remainder method to ensure sum = 100%
   const totalScore = scores.Chipotle + scores.Sweetgreen + scores.Cava;
-  const percentages = (Object.entries(scores) as [Restaurant, number][])
-    .map(([name, score]) => ({
-      name,
-      percentage: Math.round((score / totalScore) * 100),
-    }))
+  const rawPercentages = (Object.entries(scores) as [Restaurant, number][])
+    .map(([name, score]) => {
+      const exact = (score / totalScore) * 100;
+      return {
+        name,
+        exact,
+        floored: Math.floor(exact),
+        remainder: exact - Math.floor(exact),
+      };
+    });
+
+  // Distribute the remaining percentage points to entries with largest remainders
+  let remaining = 100 - rawPercentages.reduce((sum, p) => sum + p.floored, 0);
+  const sortedByRemainder = [...rawPercentages].sort((a, b) => b.remainder - a.remainder);
+  
+  for (const entry of sortedByRemainder) {
+    if (remaining <= 0) break;
+    entry.floored += 1;
+    remaining -= 1;
+  }
+
+  // Convert to final format and sort by percentage
+  const percentages = rawPercentages
+    .map(({ name, floored }) => ({ name, percentage: floored }))
     .sort((a, b) => b.percentage - a.percentage);
 
-  // If there's a tie with the winner, give winner +1% and take 1% from second
-  if (percentages[0].name !== restaurant) {
-    const winnerIndex = percentages.findIndex(p => p.name === restaurant);
-    if (winnerIndex > 0 && percentages[winnerIndex].percentage === percentages[0].percentage) {
-      percentages[winnerIndex].percentage += 1;
-      percentages[0].percentage -= 1;
-      percentages.sort((a, b) => b.percentage - a.percentage);
-    }
-  } else if (percentages.length > 1 && percentages[0].percentage === percentages[1].percentage) {
-    percentages[0].percentage += 1;
-    percentages[1].percentage -= 1;
+  // Handle tiebreaker: if winner isn't first due to tie, swap percentages to put winner first
+  const winnerIndex = percentages.findIndex(p => p.name === restaurant);
+  if (winnerIndex > 0 && percentages[winnerIndex].percentage === percentages[0].percentage) {
+    // Swap the winner to first position by giving them +1 and taking from current first
+    percentages[winnerIndex].percentage += 1;
+    percentages[0].percentage -= 1;
+    percentages.sort((a, b) => b.percentage - a.percentage);
   }
 
   return (
