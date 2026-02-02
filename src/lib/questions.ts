@@ -48,11 +48,11 @@ export const questions: Question[] = [
     title: 'What is your corporate quirk?',
     weight: 2,
     options: [
-      { id: 'mansplaining', text: 'Mansplaining', restaurant: 'Cava' },
-      { id: 'spine', text: 'Lacking a spine', restaurant: 'Sweetgreen' },
-      { id: 'nitpicking', text: 'Nitpicking', restaurant: 'Chipotle' },
-      { id: 'interrupting', text: 'Interrupting', restaurant: 'Cava' },
-      { id: 'circles', text: 'Talking in circles', restaurant: 'Chipotle' },
+      { id: 'mansplaining', text: 'Mansplaining', description: 'Explains what everyone already knows. In detail.', restaurant: 'Cava' },
+      { id: 'spine', text: 'Lacking a spine', description: "Says 'sounds good' to everything.", restaurant: 'Sweetgreen' },
+      { id: 'nitpicking', text: 'Nitpicking', description: 'Fixates on the typo in a 40-page slide deck.', restaurant: 'Chipotle' },
+      { id: 'interrupting', text: 'Interrupting', description: "Finishes everyone's sentences. Incorrectly.", restaurant: 'Cava' },
+      { id: 'circles', text: 'Talking in circles', description: 'Uses 50 words when 5 would do.', restaurant: 'Chipotle' },
     ],
   },
   {
@@ -61,11 +61,11 @@ export const questions: Question[] = [
     title: 'When are you most extra at work?',
     weight: 1,
     options: [
-      { id: 'holiday', text: 'Company holiday party', restaurant: 'Sweetgreen' },
-      { id: 'allhands', text: 'All-hands Q&A', restaurant: 'Chipotle' },
-      { id: 'oneone', text: 'One-on-one therapy sessions', restaurant: 'Sweetgreen' },
-      { id: 'icebreaker', text: 'The meeting icebreaker', restaurant: 'Cava' },
-      { id: 'gossip', text: 'Lunchtime gossip', restaurant: 'Sweetgreen' },
+      { id: 'holiday', text: 'Company holiday party', description: 'Peaks at open bar. Regrets it by Monday.', restaurant: 'Sweetgreen' },
+      { id: 'allhands', text: 'All-hands Q&A', description: 'Has follow-up questions to their follow-up questions.', restaurant: 'Chipotle' },
+      { id: 'oneone', text: 'One-on-ones', description: 'Turns every check-in into a therapy session.', restaurant: 'Sweetgreen' },
+      { id: 'icebreaker', text: 'The meeting icebreaker', description: 'Loses sleep over coming up with a fun fact.', restaurant: 'Cava' },
+      { id: 'gossip', text: 'Lunchtime gossip', description: 'Has inside sources in every department.', restaurant: 'Sweetgreen' },
     ],
   },
 ];
