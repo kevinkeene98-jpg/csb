@@ -89,21 +89,24 @@ export function ResultCard({
 
   const handleShare = async () => {
     const blob = await generateImage();
-    if (!blob) return;
-
-    const file = new File([blob], `corporateslopbowl-${restaurant.toLowerCase()}.png`, { type: 'image/png' });
+    if (!blob) {
+      console.error('Failed to generate image');
+      return;
+    }
 
     if (canShare) {
       // Mobile: Use Web Share API
       try {
+        const file = new File([blob], `corporateslopbowl-${restaurant.toLowerCase()}.png`, { type: 'image/png' });
         await navigator.share({
           files: [file],
           title: `I'm ${restaurant}!`,
-          text: `I'm ${restaurant} on CorporateSlopBowl.com`,
+          text: `I took the CorporateSlopBowl.com quiz`,
         });
       } catch (error) {
         // User cancelled or error - fall back to download
         if ((error as Error).name !== 'AbortError') {
+          console.error('Share failed:', error);
           downloadImage(blob);
         }
       }
